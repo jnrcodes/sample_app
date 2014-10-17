@@ -10,7 +10,8 @@ class User < ActiveRecord::Base
                     uniqueness: { case_sensitive: false }	
   # Add the secure password from bcrypt
   has_secure_password		
-  validates :password, length: { minimum: 6 }  
+  # We can allow blank because has_secure_password ensures the password is populated.
+  validates :password, length: { minimum: 6 }, allow_blank: true  
   
   # Returns the hash digest of the given string.
   def User.digest(string)
