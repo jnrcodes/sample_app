@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141025223213) do
+ActiveRecord::Schema.define(version: 20141025225759) do
 
   create_table "material_price_points", force: true do |t|
     t.integer  "material_id"
@@ -69,12 +69,6 @@ ActiveRecord::Schema.define(version: 20141025223213) do
   create_table "qualities", force: true do |t|
     t.text     "name"
     t.text     "color"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "ranks", force: true do |t|
-    t.integer  "number"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
