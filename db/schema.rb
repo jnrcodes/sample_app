@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141025145618) do
+ActiveRecord::Schema.define(version: 20141025155856) do
 
   create_table "material_price_points", force: true do |t|
     t.integer  "material_id"
@@ -26,14 +26,18 @@ ActiveRecord::Schema.define(version: 20141025145618) do
   add_index "material_price_points", ["server_id"], name: "index_material_price_points_on_server_id"
   add_index "material_price_points", ["user_id"], name: "index_material_price_points_on_user_id"
 
+  create_table "material_types", force: true do |t|
+    t.string "name"
+  end
+
   create_table "materials", force: true do |t|
     t.text     "name"
-    t.integer  "type"
     t.integer  "rank_id"
     t.integer  "skill_id"
     t.integer  "quality_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "material_type_id"
   end
 
   add_index "materials", ["quality_id"], name: "index_materials_on_quality_id"
