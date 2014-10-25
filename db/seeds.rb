@@ -14,6 +14,7 @@ require 'open-uri'
   material_types.each do |type_name|
     skill.material_types << MaterialType.find_or_create_by!(name: type_name)
   end
+  skill.save!
 end
 
 def populate_material_data(material, url) 
