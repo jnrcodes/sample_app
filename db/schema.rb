@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141025155856) do
+ActiveRecord::Schema.define(version: 20141025201940) do
 
   create_table "material_price_points", force: true do |t|
     t.integer  "material_id"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 20141025155856) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "material_type_id"
+    t.integer  "grade"
   end
 
   add_index "materials", ["quality_id"], name: "index_materials_on_quality_id"

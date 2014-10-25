@@ -1,21 +1,27 @@
-[ "Artifact Fragment",    "Biochemical Compound", "Biochemical Sample", 
-  "Color Crystal",        "Gemstone",             "Lockbox",             
-  "Luxury Fabric",        "Medical Supply",       "Power Crystal",     
-  "Researched Compound",  "Scavenged Compound",   "Scavenged Metal", 
-  "Underworld Metal" ].each do |name|
-   MaterialType.create!(name: name)
+require 'nokogiri'
+require 'open-uri'
+
+def populate_material_data(material, url) 
+  if (Nokogiri::HTML(open "http://torhead.com#{url}").css('div.thtt-desc').first.text rescue '') =~ /Grade (\d+)/
+    material.grade = $1.to_i
+    material.save!
+  end
 end
 
-
-ff = Selenium::WebDriver.for :firefox
-ff.navigate.to 'http://www.torhead.com/items'
-
-browse = ff.find_element(css: 'nav ul > li.unlinked > a') rescue nil
-browse.click
-
-items = nil
-while items.nil?  do
-  items = browse.find_element(css: 'a[href=/items]') rescue nil
+def populate_materials(material_type, url) 
+  Nokogiri::HTML(open "http://torhead.com#{url}").css('a[href^="/item/"]').each do |elem|
+   name = elem.text
+   if !name.nil? || name.empty? then
+     populate_material_data(material_type.materials.create!(name: name), elem.attribute('href'))
+   end
+  end
 end
-puts "found it!" unless items.nil?
 
+page = Nokogiri::HTML( open 'http://www.torhead.com/items' )
+
+page.css(%{a[href^="/items/catg/9/subcatg/"]}).each do |elem|
+   name = elem.text
+   if !name.nil? || name.empty? then
+     populate_materials(MaterialType.create!(name: name), elem.attribute('href'))
+   end
+end
