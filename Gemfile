@@ -9,6 +9,7 @@ gem 'bcrypt-ruby', '3.1.2'
 gem 'faker', '1.4.2' # makes fake data for testing
 gem 'will_paginate',           '3.0.7'  # pagenation gem
 gem 'bootstrap-will_paginate', '0.0.10'  # links pagenation to bootstrap
+gem 'selenium-webdriver', '~>2.42'
 
 group :development, :test do
   gem 'sqlite3', '1.3.8'
@@ -16,7 +17,6 @@ group :development, :test do
 end
 
 group :test do
-  gem 'selenium-webdriver', '2.35.1'
   gem 'capybara', '2.1.0'
   gem 'factory_girl_rails', '4.2.0'
 end
