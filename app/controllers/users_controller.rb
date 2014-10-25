@@ -36,6 +36,11 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
   
+  def show
+    @user = User.find(params[:id])
+    @microposts = @user.microposts.paginate(page: params[:page])
+  end
+  
   def update
     @user = User.find(params[:id])
     if @user.update_attributes(user_params)
@@ -54,16 +59,7 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:name, :email, :password,
                                    :password_confirmation)
-    end
-  
-    # Confirms a logged-in user.
-    def logged_in_user
-      unless logged_in?
-        store_location
-        flash[:danger] = "Please log in."
-        redirect_to signin_url
-      end
-    end  
+    end 
   
     # Confirms the correct user.
     def correct_user
