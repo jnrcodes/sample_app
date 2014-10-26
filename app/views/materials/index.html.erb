@@ -1,23 +1,43 @@
-<h1>Listing materials</h1>
+<h1>New Price Point Report</h1>
 
-<table>
+<h2>Select Materials</h2>
+<table id="materials">
   <thead>
     <tr>
-      <th colspan="3"></th>
+     <th>Name</th>
+     <th>Type</th>
+     <th>Skill(s)</th>
+     <th>Grade</th>
+     <th>Add Price Point</th>
     </tr>
   </thead>
 
   <tbody>
-    <% @materials.each do |material| %>
+    <% @materials.each do |material| 
+        mt = material.material_type
+        skill = mt.skills.first  
+        ppid = "pp_#{material.id}" %>
       <tr>
-        <td><%= link_to 'Show', material %></td>
-        <td><%= link_to 'Edit', edit_material_path(material) %></td>
-        <td><%= link_to 'Destroy', material, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= material.name %></td>
+        <td><%= link_to mt.name, material_type_path(mt) %></td>
+        <td><%= skill ?  link_to(skill.name, skill_path(skill)) : 'N/A' %></td>
+        <td><%= material.grade %></td>
+                <td><input type="checkbox" id="<%= ppid %>" name="<%= ppid %>"></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Material', new_material_path %>
+<div id="enter_prices">
+<h2>Enter Prices</h2>
+<table id="new_price_points">
+  <thead>
+    <tr>
+     <th>Name</th>
+     <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+</div>

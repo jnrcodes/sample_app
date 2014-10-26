@@ -10,5 +10,6 @@
  *
  * These lines below are comments parsed out by sprockets to help merge asset files.
  *= require_self
+ *= require dataTables/jquery.dataTables
  *= require_tree .
  */
