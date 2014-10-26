@@ -1,0 +1,17 @@
+<%= form_for(@material_price_point) do |f| %>
+  <% if @material_price_point.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@material_price_point.errors.count, "error") %> prohibited this material_price_point from being saved:</h2>
+
+      <ul>
+      <% @material_price_point.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
