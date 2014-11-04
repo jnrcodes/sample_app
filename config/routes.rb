@@ -1,7 +1,12 @@
 SampleApp::Application.routes.draw do  
+  resources :skills
+  resources :material_types
+  resources :materials
+  resources :material_price_points
   resources :users
-  resources :sessions, only: [:new, :create, :destroy]
-  root  'static_pages#home'
+  resources :sessions,    only: [:new, :create, :destroy]
+  resources :microposts,  only: [:create, :destroy]
+  root  'materials#index'
   match '/help',    to: 'static_pages#help',    via: 'get'
   match '/about',   to: 'static_pages#about',   via: 'get'
   match '/contact', to: 'static_pages#contact', via: 'get'
