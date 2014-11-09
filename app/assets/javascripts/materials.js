@@ -24,16 +24,32 @@ jQuery(function() {
     var tr = box.closest('tr');
     var table = tr.closest('table');
 
+    // if we're moving from the main list to the price entry form
     if (table.attr('id') == 'materials_table' && box.is(':checked')) {
+
+      // move the row to the entry form
       entryForm.append(tr);
+
+      // remove it from the data table and redraw without losing
+      // sort, search, etc. state
       dataTable.row(tr).remove().draw(false);
-      tr.find('td:last-child span.price_point').show().find('input:text').focus();
-    } else {
+
+      // Make the price-entry field visible
+      tr.find('td:last-child span.price_point').show();
+  
+  } else {
+      // if we're removing from the entry form, hide the price field
       tr.find('td:last-child span.price_point').hide();
+
+      // add a copy of the row to the data table and redraw
       dataTable.row.add(tr.clone()).draw(false);
+
+      // and remove the original row from the entry form
       tr.remove();
     }
 
+    // if the entry form is empty, hide it; otherwise, make
+    // sure it's visible
     entryDiv[entryForm.find('tr').length > 1 ? 'show' : 'hide']();
   });
 });
