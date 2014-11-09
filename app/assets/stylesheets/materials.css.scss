@@ -1,3 +1,4 @@
 div#enter_prices { display: none }
 th { text-align: left }
-td.price_point, th.price_point { display: none; }
+.price_point { display: none; }
+span.price_point input { width: 8em; }

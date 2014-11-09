@@ -4,42 +4,30 @@ jQuery -> # Run the body of this function in the context of jQuery
   # first, find our two tables
   materialsList = $('#materials_table')
   entryForm     = $('#entry_table')
-  entryDiv      = entryForm.parent
+
+  # Oh, and the initially-hidden <div> containing the second one
+  entryDiv      = $('#enter_prices')
  
   # make the first one all fancy
   dataTable = materialsList.DataTable()
 
   # Add handler for our checkboxes
-  $('body').on('click', 'input:checkbox', (event) ->
+  $('body').on 'click', 'input:checkbox', (event) ->
   
     # which checkbox did we click?
-    box  = event.target
+    box  = $ event.target
 
     # where is it?
-    cell  = box.parent
-    row   = cell.parent
-    tbody = row.parent
-    table = tbody.parent
+    tr = box.closest 'tr'
+    table = tr.closest 'table'
 
-    alert "tbody is " + tbody + "; table is " + table
-###
-    if (from.id == 'materials' && checkbox.checked) {
-        to = entryForm;
-    } else {
-        to = materialsList
-} //console.log(to)
-to.appendChild(tr);
-var i, found = false;
-for (i=0; i<entryForm.childNodes.length; ++i) {
-if (entryForm.childNodes[i].tagName == 'TR') {
-        found = true;
-        break;
-      }
-    }
-    if (found) {
-       entryDiv.style.display = 'block';
-    } else { 
-       entryDiv.style.display = 'none';
-    }
-  } );
-###
+    if table.attr('id') == 'materials_table' && box.is ':checked'
+      entryForm.append tr
+      dataTable.row(tr).remove().draw(false)
+      tr.find('td:last-child span.price_point').show().find('input:text').focus()
+    else
+      tr.find('td:last-child span.price_point').hide()
+      dataTable.row.add(tr.clone()).draw(false)
+      tr.remove()
+
+    do entryDiv[if entryForm.find('tr').length > 1 then 'show' else 'hide']

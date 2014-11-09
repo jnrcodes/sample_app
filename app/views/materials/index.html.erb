@@ -9,12 +9,11 @@
      <th>Skill(s)</th>
      <th>Grade</th>
      <th>Add Price Point</th>
-     <th class="price_point">Price Point</th>
     </tr>
   </thead>
 
   <tbody>
-    <% @materials.each do |material| 
+    <% @materials.reject {|m| m.name.blank? }.each do |material| 
         mt = material.material_type
         skill = mt.skills.first  
         ppid = "pp_#{material.id}" %>
@@ -23,8 +22,8 @@
         <td><%= link_to mt.name, material_type_path(mt) %></td>
         <td><%= skill ?  link_to(skill.name, skill_path(skill)) : 'N/A' %></td>
         <td><%= material.grade %></td>
-        <td><input type="checkbox"></td>
-        <td class="price_point"><input type="text" id="<%= ppid %>" name="<%= ppid %>"></td>
+        <td><nobr><input type="checkbox">
+            <span class="price_point"><input type="text" size="8" id="<%= ppid %>" name="<%= ppid %>"></span></nobr></td>
       </tr>
     <% end %>
   </tbody>
@@ -40,7 +39,6 @@
      <th>Skill(s)</th>
      <th>Grade</th>
      <th>Add Price Point</th>
-     <th class="price_point">Price Point</th>
     </tr>
   </thead>
   <tbody>
