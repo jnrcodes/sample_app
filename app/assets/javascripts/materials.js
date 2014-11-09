@@ -1,5 +1,8 @@
-
-jQuery(function() { // Run the body of this function in the context of jQuery
+// this will run the body of the function in the context of jQuery 
+// so we can have jQuery's `$` available to us without messing
+// with any other library which might be using global '$' for
+// something else.
+jQuery(function() { 
 
   // first, find our two tables
   var materialsList = $('#materials_table');
