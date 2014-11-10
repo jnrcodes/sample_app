@@ -1,4 +1,13 @@
-<p id="notice"><%= notice %></p>
+<%
+  mt = @material.material_type
+  skill = mt.skills.first  
+%>
+<table>
+<tr><th>ID</th><td><%= @material.id %></td></tr>
+<tr><th>Name</th><td><%= @material.name %></td></tr>
+<tr><th>Type</th><td><%= link_to mt.name, material_type_path(mt) %></td></tr>
+<tr><th>Skill</th><td><%= skill ?  link_to(skill.name, skill_path(skill)) : 'N/A' %></td>A</tr>
+<tr><th>Grade</th><td><%= @material.grade %></td></tr>
 
 <%= link_to 'Edit', edit_material_path(@material) %> |
 <%= link_to 'Back', materials_path %>
